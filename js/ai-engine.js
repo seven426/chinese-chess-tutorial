@@ -1,4 +1,6 @@
-const ChessEngine = typeof require !== 'undefined' ? require('./chess-engine.js') : (typeof ChessEngine !== 'undefined' ? ChessEngine : null);
+if (typeof require !== 'undefined' && typeof ChessEngine === 'undefined') {
+  var ChessEngine = require('./chess-engine.js');
+}
 
 class AIEngine {
   constructor() {
