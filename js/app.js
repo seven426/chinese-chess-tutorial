@@ -593,6 +593,18 @@ const App = {
       return lastMove.captured === code;
     };
 
+    // If allowedPieces is restricted and none of them exist, it's impossible
+    if (this.currentLevel.allowedPieces) {
+      let anyAllowedExists = false;
+      for (const code of this.currentLevel.allowedPieces) {
+        if (pieceExists(code)) {
+          anyAllowedExists = true;
+          break;
+        }
+      }
+      if (!anyAllowedExists) return true;
+    }
+
     switch (obj.type) {
       case 'move_to':
         if (!pieceExists(obj.piece)) return true;
