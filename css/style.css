@@ -670,6 +670,38 @@ body {
   justify-content: center;
 }
 
+.failure-content {
+  background: linear-gradient(to bottom, #FFF5F5, white);
+  border: 3px solid var(--cinnabar-light);
+}
+
+.failure-emoji {
+  font-size: 4rem;
+  animation: shake 1.2s ease-in-out infinite;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0) rotate(0deg); }
+  20% { transform: translateX(-12px) rotate(-5deg); }
+  40% { transform: translateX(12px) rotate(5deg); }
+  60% { transform: translateX(-8px) rotate(-3deg); }
+  80% { transform: translateX(8px) rotate(3deg); }
+}
+
+.failure-title {
+  font-family: 'Ma Shan Zheng', cursive;
+  font-size: 2rem;
+  color: var(--cinnabar);
+  margin: 12px 0;
+}
+
+.failure-text {
+  color: var(--ink-light);
+  margin-bottom: 20px;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
 .hint-content {
   border: 2px solid var(--gold);
 }

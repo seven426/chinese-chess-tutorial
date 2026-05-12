@@ -43,6 +43,8 @@ const App = {
       else this.showMap();
     };
     document.getElementById('btn-hint-close').onclick = () => this.hideModal('hint-modal');
+    document.getElementById('btn-failure-replay').onclick = () => { this.hideModal('failure-modal'); this.restartLevel(); };
+    document.getElementById('btn-failure-back').onclick = () => { this.hideModal('failure-modal'); this.showMap(); };
     document.getElementById('btn-ach-back').onclick = () => this.showMenu();
     document.getElementById('chess-board').onclick = (e) => this.onBoardClick(e);
   },
@@ -565,11 +567,9 @@ const App = {
     this.stopTimer();
     this.playSound(200, 0.3);
     setTimeout(() => {
-      if (confirm('被将死了！要再试一次吗？')) {
-        this.restartLevel();
-      } else {
-        this.showMap();
-      }
+      document.getElementById('failure-title').textContent = '被将死了！';
+      document.getElementById('failure-text').textContent = '你的将/帅被将死，这关没能通过。';
+      this.showModal('failure-modal');
     }, 500);
   },
 
@@ -645,11 +645,9 @@ const App = {
     this.stopTimer();
     this.playSound(200, 0.3);
     setTimeout(() => {
-      if (confirm('任务无法完成了！要再试一次吗？')) {
-        this.restartLevel();
-      } else {
-        this.showMap();
-      }
+      document.getElementById('failure-title').textContent = '任务无法完成';
+      document.getElementById('failure-text').textContent = '关键棋子被吃掉，任务目标无法达成了。';
+      this.showModal('failure-modal');
     }, 500);
   },
 
