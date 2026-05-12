@@ -11,7 +11,7 @@ const LEVELS = [
     objective: { type: "move_to", piece: "rK", target: [8, 4] },
     position: "5k3/9/9/9/9/9/9/9/9/4K4",
     hints: ["将帅只能在九宫内移动", "每次只能走一格，横竖都可以", "点击红帅，再点击它上方的格子"],
-    starSteps: [2, 3, 5], allowedPieces: ["rK"], aiDepth: 0
+    starSteps: [2, 3, 5], allowedPieces: ["rK"], aiDepth: 1
   },
   {
     id: 2, name: "車行直线", subtitle: "車的走法", chapter: 1, type: "tutorial",

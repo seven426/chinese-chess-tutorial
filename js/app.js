@@ -55,6 +55,7 @@ const App = {
 
   showMenu() {
     this.stopTimer();
+    this.showAIThinking(false);
     this.updateMenuStats();
     this.showScreen('menu-screen');
   },
@@ -284,6 +285,16 @@ const App = {
       boardEl.appendChild(dot);
     }
 
+    // Target marker for move_to objectives
+    if (this.currentLevel && this.currentLevel.objective && this.currentLevel.objective.type === 'move_to') {
+      const [tr, tc] = this.currentLevel.objective.target;
+      const marker = document.createElement('div');
+      marker.className = 'target-marker';
+      marker.style.left = `${2 + tc * 52}px`;
+      marker.style.top = `${2 + tr * 52}px`;
+      boardEl.appendChild(marker);
+    }
+
     // Selection ring
     if (this.selectedCell) {
       const ring = document.createElement('div');
@@ -397,12 +408,6 @@ const App = {
   },
 
   performAIMove() {
-    if (!this.currentLevel || this.currentLevel.aiDepth === 0) {
-      this.turnState = 'USER_TURN';
-      this.renderBoard();
-      return;
-    }
-
     this.showAIThinking(true);
 
     setTimeout(() => {
@@ -432,6 +437,7 @@ const App = {
         }
       }
 
+      this.engine.currentPlayer = 'red';
       this.turnState = 'USER_TURN';
       this.renderBoard();
     }, 600);
