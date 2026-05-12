@@ -1,6 +1,4 @@
-if (typeof require !== 'undefined' && typeof ChessEngine === 'undefined') {
-  var ChessEngine = require('./chess-engine.js');
-}
+const ChessEngineRef = typeof require !== 'undefined' ? require('./chess-engine.js') : null;
 
 class AIEngine {
   constructor() {
@@ -39,7 +37,7 @@ class AIEngine {
   evaluate(board, color) {
     const phase = this.getGamePhase(board);
     let score = 0;
-    const engine = new ChessEngine();
+    const engine = new (ChessEngineRef || ChessEngine)();
     engine.board = board;
 
     for (let r = 0; r < 10; r++) {
@@ -106,7 +104,7 @@ class AIEngine {
   }
 
   _minimax(board, depth, alpha, beta, isMaximizing, aiColor) {
-    const engine = new ChessEngine();
+    const engine = new (ChessEngineRef || ChessEngine)();
     engine.board = board;
     const currentColor = isMaximizing ? aiColor : (aiColor === 'red' ? 'black' : 'red');
 
