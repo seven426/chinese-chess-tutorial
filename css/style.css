@@ -791,7 +791,7 @@ body {
   position: fixed;
   top: 80px;
   left: 50%;
-  transform: translateX(-50%) translateY(-100px);
+  transform: translateX(-50%) translateY(0);
   background: rgba(26, 26, 26, 0.85);
   color: white;
   padding: 10px 24px;
@@ -802,12 +802,16 @@ body {
   align-items: center;
   gap: 10px;
   z-index: 500;
-  transition: transform 0.3s ease;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
   backdrop-filter: blur(8px);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
 }
 
 .ai-thinking.active {
-  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+  visibility: visible;
 }
 
 .ai-icon {

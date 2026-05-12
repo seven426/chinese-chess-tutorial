@@ -437,6 +437,11 @@ const App = {
         }
       }
 
+      if (this.checkImpossible()) {
+        this.handleImpossible();
+        return;
+      }
+
       this.engine.currentPlayer = 'red';
       this.turnState = 'USER_TURN';
       this.renderBoard();
@@ -561,6 +566,74 @@ const App = {
     this.playSound(200, 0.3);
     setTimeout(() => {
       if (confirm('被将死了！要再试一次吗？')) {
+        this.restartLevel();
+      } else {
+        this.showMap();
+      }
+    }, 500);
+  },
+
+  checkImpossible() {
+    const obj = this.currentLevel.objective;
+    const e = this.engine;
+
+    const pieceExists = (code) => {
+      for (let r = 0; r < 10; r++) {
+        for (let c = 0; c < 9; c++) {
+          if (e.getPiece(r, c) === code) return true;
+        }
+      }
+      return false;
+    };
+
+    const capturedByRed = (code) => {
+      if (e.moveHistory.length === 0) return false;
+      const lastMove = e.moveHistory[e.moveHistory.length - 1];
+      if (lastMove.player !== 'red') return false;
+      return lastMove.captured === code;
+    };
+
+    switch (obj.type) {
+      case 'move_to':
+        if (!pieceExists(obj.piece)) return true;
+        break;
+      case 'capture': {
+        if (!pieceExists(obj.piece) && !capturedByRed(obj.piece)) return true;
+        if (obj.by && !pieceExists(obj.by)) return true;
+        break;
+      }
+      case 'capture_all': {
+        for (const ptype of obj.pieces) {
+          if (!pieceExists(ptype) && !capturedByRed(ptype)) return true;
+        }
+        break;
+      }
+      case 'check':
+      case 'checkmate': {
+        const kingCode = obj.targetColor === 'black' ? 'bK' : 'rK';
+        if (!pieceExists(kingCode)) return true;
+        break;
+      }
+      case 'escape_check':
+      case 'survive_n_moves':
+        if (!pieceExists('rK')) return true;
+        break;
+      case 'counter_capture': {
+        if (!pieceExists(obj.targetPiece) && !capturedByRed(obj.targetPiece)) return true;
+        break;
+      }
+      case 'defend_and_check':
+        if (!pieceExists('rK')) return true;
+        break;
+    }
+    return false;
+  },
+
+  handleImpossible() {
+    this.stopTimer();
+    this.playSound(200, 0.3);
+    setTimeout(() => {
+      if (confirm('任务无法完成了！要再试一次吗？')) {
         this.restartLevel();
       } else {
         this.showMap();
