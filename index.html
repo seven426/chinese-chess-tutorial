@@ -7,7 +7,15 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Serif+SC:wght@400;700&family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/style.css?v=2">
+  <script>
+    window.jsErrors = [];
+    window.onerror = function(msg, url, line, col, err) {
+      window.jsErrors.push(msg + ' @ ' + url + ':' + line);
+      var el = document.getElementById('js-error-panel');
+      if (el) el.textContent = window.jsErrors.join('\n');
+    };
+  </script>
 </head>
 <body>
   <!-- Main Menu -->
@@ -159,10 +167,11 @@
   <!-- Toast -->
   <div id="toast" class="toast"></div>
 
-  <script src="js/chess-engine.js"></script>
-  <script src="js/ai-engine.js"></script>
-  <script src="js/validator.js"></script>
-  <script src="js/levels.js"></script>
-  <script src="js/app.js"></script>
+  <pre id="js-error-panel" style="position:fixed;bottom:0;left:0;width:100%;background:#c23a30;color:#fff;padding:12px;font-size:14px;z-index:9999;max-height:200px;overflow:auto;white-space:pre-wrap;word-break:break-all;"></pre>
+  <script src="js/chess-engine.js?v=2"></script>
+  <script src="js/ai-engine.js?v=2"></script>
+  <script src="js/validator.js?v=2"></script>
+  <script src="js/levels.js?v=2"></script>
+  <script src="js/app.js?v=2"></script>
 </body>
 </html>
