@@ -64,18 +64,18 @@ const LEVELS = [
     starSteps: [3, 4, 6], allowedPieces: ["rR"], aiDepth: 1
   },
   {
-    id: 8, name: "馬踏联营", subtitle: "馬的吃子技巧", chapter: 2, type: "offensive",
-    description: "用红馬吃掉两个黑子！",
+    id: 8, name: "馬踏联营", subtitle: "双馬配合", chapter: 2, type: "offensive",
+    description: "两个馬配合起来威力更大。用双馬消灭两个黑卒！",
     objective: { type: "capture_all", pieces: ["bP", "bP"] },
-    position: "9/9/9/9/9/9/9/p1p6/9/2N5",
-    hints: ["馬走日字，蹩马腿时不能跳", "先吃(7,0)或(7,2)的黑卒"],
+    position: "9/9/9/9/9/9/9/p1p6/9/1N1N5",
+    hints: ["双馬配合，各司其职", "左边的馬吃左边的卒，右边的馬吃右边的卒"],
     starSteps: [2, 3, 5], allowedPieces: ["rN"], aiDepth: 1
   },
   {
     id: 9, name: "将军！", subtitle: "一步将军", chapter: 2, type: "offensive",
     description: "用红車走一步直接将军黑将！",
     objective: { type: "check", targetColor: "black" },
-    position: "3aka3/4R4/9/9/9/9/9/9/9/9",
+    position: "3aka3/3R5/9/9/9/9/9/9/9/3K5",
     hints: ["将军就是将帅被对方攻击", "車在同一直线上且中间无子时将军"],
     starSteps: [1, 2, 4], allowedPieces: ["rR"], aiDepth: 1
   },
@@ -91,25 +91,25 @@ const LEVELS = [
     id: 11, name: "双車错", subtitle: "经典杀法", chapter: 2, type: "offensive",
     description: "两个車配合起来威力巨大。吃掉黑将！",
     objective: { type: "capture", piece: "bK" },
-    position: "9/R3k3R/9/9/9/9/9/9/9/9",
-    hints: ["双車错是两个車在不同横线交替将军", "黑将无处可躲时就可以吃掉它"],
+    position: "4k4/R7R/9/9/9/9/9/9/9/9",
+    hints: ["先用一个車将军，逼黑将移动", "另一个車在另一路完成击杀"],
     starSteps: [3, 4, 6], allowedPieces: null, aiDepth: 1
   },
   {
     id: 12, name: "馬后炮", subtitle: "经典杀法", chapter: 2, type: "offensive",
     description: "马跳到将的前面将军，炮在马的后面形成杀势。完成馬后炮杀法！",
     objective: { type: "check", targetColor: "black" },
-    position: "9/4k4/3N5/9/9/9/9/9/9/9",
-    hints: ["馬走日字，注意蹩马腿", "从(2,3)可以跳到(0,4)将军"],
+    position: "4k4/9/9/2N1C4/9/9/9/9/9/3K5",
+    hints: ["馬后炮是马做炮架、炮隔马打将", "马跳到(2,4)做炮架，炮隔马将死黑将"],
     starSteps: [2, 3, 5], allowedPieces: null, aiDepth: 2
   },
   {
     id: 13, name: "重炮杀", subtitle: "经典杀法", chapter: 2, type: "offensive",
     description: "两个炮在同一条线上，前面的炮做炮架，后面的炮将军。完成重炮杀！",
     objective: { type: "check", targetColor: "black" },
-    position: "C1p1k1p1C/4k4/9/9/9/9/9/9/9/9",
-    hints: ["两个炮都能隔子将军", "左边的炮隔黑卒打将"],
-    starSteps: [2, 3, 5], allowedPieces: null, aiDepth: 2
+    position: "3aka3/9/4C4/9/9/3C5/9/9/9/4K4",
+    hints: ["两个炮在同一条线上", "后面的炮隔前面的炮打将"],
+    starSteps: [1, 2, 3], allowedPieces: null, aiDepth: 2
   },
 
   // ===== Chapter 3: 守中带攻 (14-20) =====
@@ -125,7 +125,7 @@ const LEVELS = [
     id: 15, name: "弃車保帅", subtitle: "垫将解围", chapter: 3, type: "defensive",
     description: "黑方炮隔兵打将！用车垫在炮和将之间解围。",
     objective: { type: "escape_check", withinMoves: 2 },
-    position: "4k4/9/9/9/9/9/9/9/4P4/3R1K3",
+    position: "4k4/9/9/9/9/9/9/9/2c1PK4/3R5",
     hints: ["炮将军需要隔子", "用车挡在炮和将之间"],
     starSteps: [1, 2, 3], allowedPieces: ["rK", "rR"], aiDepth: 2, aiAggressive: true
   },
@@ -175,15 +175,15 @@ const LEVELS = [
     id: 21, name: "残局妙手", subtitle: "一步制胜", chapter: 4, type: "offensive",
     description: "看似无解的局面，其实有一步妙手可以将军！",
     objective: { type: "check", targetColor: "black" },
-    position: "4k4/9/3N5/9/9/9/9/9/9/9",
-    hints: ["馬的走法灵活", "从(2,3)可以跳到(0,4)将军"],
+    position: "4k4/9/9/9/2N6/9/9/9/9/3K5",
+    hints: ["馬的走法灵活", "先跳到合适位置再将军"],
     starSteps: [1, 2, 3], allowedPieces: null, aiDepth: 3
   },
   {
     id: 22, name: "兵贵神速", subtitle: "兵的妙用", chapter: 4, type: "offensive",
     description: "兵虽然走得慢，但过河后威力大增。用兵配合其他子力完成杀局！",
     objective: { type: "check", targetColor: "black" },
-    position: "9/4k4/4N4/9/4P4/9/9/9/9/9",
+    position: "9/4k4/4N4/9/4P4/9/9/9/9/3K5",
     hints: ["兵向前走一步可以将军", "用馬配合也能将军"],
     starSteps: [3, 4, 6], allowedPieces: null, aiDepth: 3
   },
@@ -191,7 +191,7 @@ const LEVELS = [
     id: 23, name: "双鬼拍门", subtitle: "残局杀法", chapter: 4, type: "offensive",
     description: "两个低价值棋子配合，在对方将帅周围形成杀势。",
     objective: { type: "checkmate", targetColor: "black" },
-    position: "4k4/9/9/9/9/9/9/9/9/R5N2",
+    position: "4k4/9/9/9/9/9/9/9/9/R2K2N2",
     hints: [ "車控制直线", "馬跳到将旁边配合" ],
     starSteps: [3, 4, 6], allowedPieces: null, aiDepth: 3
   },

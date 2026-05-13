@@ -15,11 +15,9 @@ const App = {
   progress: null,
   lastMove: null,
   turnState: 'USER_TURN',
-  ai: null,
   validator: null,
 
   init() {
-    this.ai = new AIEngine();
     this.validator = new Validator();
     this.loadProgress();
     this.bindEvents();
@@ -152,6 +150,7 @@ const App = {
     this.selectedCell = null;
     this.legalMoves = [];
     this.lastMove = null;
+    this.turnState = 'USER_TURN';
 
     // Track attempts
     this.progress.levelAttempts[levelId] = (this.progress.levelAttempts[levelId] || 0) + 1;
@@ -412,42 +411,96 @@ const App = {
   performAIMove() {
     this.showAIThinking(true);
 
-    setTimeout(() => {
-      const depth = this.currentLevel.aiDepth || 1;
-      const move = this.ai.findBestMove(this.engine, depth, 'black');
-      this.showAIThinking(false);
+    const depth = this.currentLevel.aiDepth || 1;
+    const board = this.engine.board;
 
-      if (move) {
-        this.engine.makeMove(move.fromR, move.fromC, move.toR, move.toC);
-        this.lastMove = { from: { r: move.fromR, c: move.fromC }, to: { r: move.toR, c: move.toC } };
-        this.updateHistory();
-        this.playSound(300, 0.05);
-        this.renderBoard();
+    this._fetchBackendMove(board, depth)
+      .then(move => {
+        this.showAIThinking(false);
+        this._executeAIMove(move);
+      })
+      .catch(err => {
+        this.showAIThinking(false);
+        this.showToast('无法连接AI后端服务，请确保后端已启动');
+        this.turnState = 'USER_TURN';
+        console.error('AI backend error:', err);
+      });
+  },
 
-        if (this.engine._isKingInCheck(this.engine.board, 'red')) {
-          this.showCheckWarning();
-        }
+  _getApiBase() {
+    if (window.location.protocol === 'file:') {
+      return 'http://localhost:8000';
+    }
+    return `${window.location.protocol}//${window.location.hostname}:8000`;
+  },
 
-        if (this.engine.isCheckmate('red')) {
-          this.handleDefeat();
-          return;
-        }
+  async _fetchBackendMove(board, depth) {
+    const urls = [
+      `${this._getApiBase()}/api/ai-move`,
+      'http://localhost:8000/api/ai-move'
+    ];
+    let lastError = null;
 
-        if (this.checkDefensiveVictory()) {
-          this.handleVictory();
-          return;
-        }
+    for (const url of urls) {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 4000);
+      try {
+        const res = await fetch(url, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            board: board,
+            color: 'black',
+            level_id: this.currentLevel.id,
+            ai_depth: depth,
+            engine: 'auto'
+          }),
+          signal: controller.signal
+        });
+        clearTimeout(timeoutId);
+        if (!res.ok) continue;
+        const data = await res.json();
+        if (data.error || !data.move) continue;
+        return data.move;
+      } catch (e) {
+        clearTimeout(timeoutId);
+        lastError = e;
+      }
+    }
+    throw lastError || new Error('All backend URLs failed');
+  },
+
+  _executeAIMove(move) {
+    if (move) {
+      this.engine.makeMove(move.fromR, move.fromC, move.toR, move.toC);
+      this.lastMove = { from: { r: move.fromR, c: move.fromC }, to: { r: move.toR, c: move.toC } };
+      this.updateHistory();
+      this.playSound(300, 0.05);
+      this.renderBoard();
+
+      if (this.engine._isKingInCheck(this.engine.board, 'red')) {
+        this.showCheckWarning();
       }
 
-      if (this.checkImpossible()) {
-        this.handleImpossible();
+      if (this.engine.isCheckmate('red')) {
+        this.handleDefeat();
         return;
       }
 
-      this.engine.currentPlayer = 'red';
-      this.turnState = 'USER_TURN';
-      this.renderBoard();
-    }, 600);
+      if (this.checkDefensiveVictory()) {
+        this.handleVictory();
+        return;
+      }
+    }
+
+    if (this.checkImpossible()) {
+      this.handleImpossible();
+      return;
+    }
+
+    this.engine.currentPlayer = 'red';
+    this.turnState = 'USER_TURN';
+    this.renderBoard();
   },
 
   playSound(freq, duration) {
@@ -502,7 +555,12 @@ const App = {
       case 'capture': {
         const [tr, tc] = obj.at || [0, 0];
         if (obj.at) {
-          return e.getPiece(tr, tc) !== obj.piece;
+          // If piece is still there, not captured yet
+          if (e.getPiece(tr, tc) === obj.piece) return false;
+          // Verify it was actually captured by red in the last move
+          if (e.moveHistory.length === 0) return false;
+          const lastMove = e.moveHistory[e.moveHistory.length - 1];
+          return lastMove.player === 'red' && lastMove.captured === obj.piece;
         }
         for (let r = 0; r < 10; r++) {
           for (let c = 0; c < 9; c++) {
