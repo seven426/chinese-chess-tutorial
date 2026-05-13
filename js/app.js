@@ -400,6 +400,22 @@ const App = {
           return;
         }
       }
+      // Check stalemate: opponent has no legal moves = win
+      let blackHasMoves = false;
+      for (let r = 0; r < 10; r++) {
+        for (let c = 0; c < 9; c++) {
+          const p = this.engine.board[r][c];
+          if (p && p[0] === 'b' && this.engine.getLegalMoves(r, c).length > 0) {
+            blackHasMoves = true;
+            break;
+          }
+        }
+        if (blackHasMoves) break;
+      }
+      if (!blackHasMoves) {
+        this.handleVictory();
+        return;
+      }
       this.turnState = 'AI_TURN';
       this.renderBoard();
       this.performAIMove();
@@ -443,7 +459,7 @@ const App = {
 
     for (const url of urls) {
       const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 4000);
+      const timeoutId = setTimeout(() => controller.abort(), 15000);
       try {
         const res = await fetch(url, {
           method: 'POST',

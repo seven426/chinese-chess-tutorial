@@ -131,19 +131,19 @@ const LEVELS = [
   },
   {
     id: 16, name: "顺手牵羊", subtitle: "解杀反击", chapter: 3, type: "defensive",
-    description: "黑方馬正在将军！用红馬跳过去吃掉黑馬，同时解杀。",
+    description: "黑方馬正在将军！危急关头，红馬一跃而起吃掉黑馬，既解了杀又得了子！",
     objective: { type: "counter_capture", targetPiece: "bN", withinMoves: 2 },
-    position: "4k4/9/9/9/9/9/9/2n5/9/2N2K3",
-    hints: ["解杀的同时可以吃掉对方的攻击子", "红馬可以跳到(7,3)吃掉黑馬"],
-    starSteps: [1, 2, 3], allowedPieces: null, aiDepth: 2, aiAggressive: true
+    position: "3k5/9/9/9/9/9/9/3n5/9/2N1K4",
+    hints: ["此关只能使用红馬", "走马日字，蹩马腿的格子不能跳", "红馬从(9,2)跳到(7,3)吃掉黑馬"],
+    starSteps: [1, 2, 3], allowedPieces: ["rN"], aiDepth: 2, aiAggressive: true
   },
   {
     id: 17, name: "化解危机", subtitle: "连环解杀", chapter: 3, type: "defensive",
-    description: "黑方双車错攻势凶猛！连续解杀，在 4 步内化解危机。",
-    objective: { type: "survive_n_moves", n: 4 },
-    position: "4k4/9/9/9/9/9/9/9/2r1r4/4K4",
-    hints: ["双車错是两个車交替将军", "注意移动将帅躲避"],
-    starSteps: [3, 4, 5], allowedPieces: ["rK"], aiDepth: 3, aiAggressive: true
+    description: "黑方双車错攻势凶猛！底車将军，纵車被封，帅只能走(8,4)解围。",
+    objective: { type: "escape_check", withinMoves: 2 },
+    position: "3k5/9/9/9/9/4r4/9/4R4/9/r3K4",
+    hints: ["底部黑車正在将军", "帅只能竖向走(8,4)，红車挡住了纵线黑車", "横向走(9,3)或(9,5)会被底車吃掉"],
+    starSteps: [1, 2, 4], allowedPieces: null, aiDepth: 2, aiAggressive: true
   },
   {
     id: 18, name: "固若金汤", subtitle: "士象防守", chapter: 3, type: "defensive",
@@ -163,11 +163,11 @@ const LEVELS = [
   },
   {
     id: 20, name: "绝地反击", subtitle: "防守反击", chapter: 3, type: "defensive",
-    description: "红方少子，但黑方攻势有漏洞。在 5 步内化解攻势并反将！",
-    objective: { type: "defend_and_check", withinMoves: 5 },
-    position: "4k4/9/9/9/9/9/9/9/2r1r4/2N1K4",
-    hints: ["红馬机动性强，善于防守反击", "找机会跳到将军的位置"],
-    starSteps: [3, 4, 5], allowedPieces: null, aiDepth: 3, aiAggressive: true
+    description: "黑車纵向将军！红車横向吃车，既解了将又顺势反将黑方！一箭双雕！",
+    objective: { type: "defend_and_check", withinMoves: 2 },
+    position: "4k4/9/9/9/9/2R1r4/9/9/9/4K4",
+    hints: ["黑車(5,4)正在将军红帅", "红車(5,2)可以横向走到(5,4)吃车", "吃车后红車与黑将同列，反将黑方！"],
+    starSteps: [1, 2, 3], allowedPieces: null, aiDepth: 2, aiAggressive: true
   },
 
   // ===== Chapter 4: 大师试炼 (21-25) =====
@@ -182,34 +182,34 @@ const LEVELS = [
   {
     id: 22, name: "兵贵神速", subtitle: "兵的妙用", chapter: 4, type: "offensive",
     description: "兵虽然走得慢，但过河后威力大增。用兵配合其他子力完成杀局！",
-    objective: { type: "check", targetColor: "black" },
+    objective: { type: "checkmate", targetColor: "black" },
     position: "9/4k4/4N4/9/4P4/9/9/9/9/3K5",
     hints: ["兵向前走一步可以将军", "用馬配合也能将军"],
     starSteps: [3, 4, 6], allowedPieces: null, aiDepth: 3
   },
   {
     id: 23, name: "双鬼拍门", subtitle: "残局杀法", chapter: 4, type: "offensive",
-    description: "两个低价值棋子配合，在对方将帅周围形成杀势。",
+    description: "車控制直线封锁逃路，馬灵活跳跃贴身将军，車馬配合完成绝杀！",
     objective: { type: "checkmate", targetColor: "black" },
     position: "4k4/9/9/9/9/9/9/9/9/R2K2N2",
-    hints: [ "車控制直线", "馬跳到将旁边配合" ],
+    hints: [ "車控制直线封锁黑将逃路", "馬跳到将旁边配合将军", "車封馬将，双管齐下" ],
     starSteps: [3, 4, 6], allowedPieces: null, aiDepth: 3
   },
   {
-    id: 24, name: "车轮大战", subtitle: "综合考验", chapter: 4, type: "offensive",
-    description: "黑方子力完整，红方需要精准打击。在三步内吃掉黑将！",
-    objective: { type: "capture", piece: "bK" },
-    position: "3aka3/4R4/9/9/9/9/9/9/9/9",
-    hints: [ "車的威力最大", "先用車吃掉防守子" ],
-    starSteps: [3, 4, 6], allowedPieces: null, aiDepth: 4
+    id: 24, name: "車馬冷着", subtitle: "综合残局", chapter: 4, type: "offensive",
+    description: "黑方双士护卫严密，红方車馬兵三子联攻。需要巧妙腾挪配合，撕开防线将死黑方！",
+    objective: { type: "checkmate", targetColor: "black" },
+    position: "3aka3/9/9/4N4/9/4P4/9/9/4R4/3K5",
+    hints: [ "車馬兵三子配合，逐步压缩黑将空间", "先用车控制要道，馬兵伺机将军", "注意黑方士象的防守作用" ],
+    starSteps: [3, 4, 7], allowedPieces: null, aiDepth: 4
   },
   {
     id: 25, name: "终极挑战", subtitle: "三步杀", chapter: 4, type: "offensive",
-    description: "综合运用所学知识，在三步内将死黑将！这是最后的考验！",
-    objective: { type: "capture", piece: "bK" },
-    position: "4k4/3a1a3/9/9/9/9/9/9/9/RNC6",
-    hints: [ "综合运用車、馬、炮", "先吃掉黑士，再攻击黑将" ],
-    starSteps: [3, 4, 6], allowedPieces: null, aiDepth: 4
+    description: "車馬炮三子归边，黑方将士残守。综合运用所学，三步内将死黑方！最后的考验！",
+    objective: { type: "checkmate", targetColor: "black" },
+    position: "4k4/3a5/2C3N2/7R1/9/9/9/9/9/3K5",
+    hints: [ "車馬炮三子联动，先用车将、再用马控、炮绝杀", "注意黑将只有(0,3)可逃", "提前算好三步的连贯走法" ],
+    starSteps: [3, 4, 7], allowedPieces: null, aiDepth: 4
   }
 ];
 
