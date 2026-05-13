@@ -123,11 +123,11 @@ const LEVELS = [
   },
   {
     id: 15, name: "弃車保帅", subtitle: "垫将解围", chapter: 3, type: "defensive",
-    description: "黑方炮隔兵打将！用车垫在炮和将之间解围。",
+    description: "黑方炮打将！危急时刻，只能用车解围。舍车保帅！",
     objective: { type: "escape_check", withinMoves: 2 },
-    position: "4k4/9/9/9/9/9/9/9/2c1PK4/3R5",
-    hints: ["炮将军需要隔子", "用车挡在炮和将之间"],
-    starSteps: [1, 2, 3], allowedPieces: ["rK", "rR"], aiDepth: 2, aiAggressive: true
+    position: "4k4/9/9/9/9/9/9/9/3Rn4/c1n1K4",
+    hints: ["此关只能使用红车", "把红车走到(9,3)垫将", "炮隔黑马吃掉红车后帅就安全了"],
+    starSteps: [1, 2, 3], allowedPieces: ["rR"], aiDepth: 2, aiAggressive: true
   },
   {
     id: 16, name: "顺手牵羊", subtitle: "解杀反击", chapter: 3, type: "defensive",
