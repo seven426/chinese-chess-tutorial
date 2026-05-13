@@ -17,7 +17,7 @@ const LEVELS = [
     id: 2, name: "車行直线", subtitle: "車的走法", chapter: 1, type: "tutorial",
     description: "車可以横竖走任意格。用车吃掉右边的黑卒！",
     objective: { type: "capture", piece: "bP", at: [9, 8] },
-    position: "9/9/9/9/9/9/9/9/9/R7p",
+    position: "4k4/9/9/9/9/9/9/3K5/9/R7p",
     hints: ["車走直线，不限格数", "点击红車，再点击黑卒的位置"],
     starSteps: [1, 2, 4], allowedPieces: ["rR"], aiDepth: 0
   },
@@ -25,7 +25,7 @@ const LEVELS = [
     id: 3, name: "馬走日字", subtitle: "馬的走法", chapter: 1, type: "tutorial",
     description: "馬走'日'字。从(9,1)跳到(7,2)吃掉黑卒！",
     objective: { type: "capture", piece: "bP", at: [7, 2] },
-    position: "9/9/9/9/9/9/9/2p6/9/1N7",
+    position: "4k4/9/9/9/9/9/9/2p6/3K5/1N7",
     hints: ["馬走日字：先直走两格，再斜走一格", "看看能不能从(9,1)跳到(7,2)"],
     starSteps: [1, 2, 4], allowedPieces: ["rN"], aiDepth: 0
   },
@@ -33,7 +33,7 @@ const LEVELS = [
     id: 4, name: "隔山打牛", subtitle: "炮的吃子", chapter: 1, type: "tutorial",
     description: "炮吃子时必须隔着一个棋子（炮架）。用炮隔着自己的兵吃掉黑卒！",
     objective: { type: "capture", piece: "bP", at: [9, 5] },
-    position: "9/9/9/9/9/9/9/9/9/1C1P1p3",
+    position: "4k4/9/9/9/9/9/9/3K5/9/1C1P1p3",
     hints: ["炮吃子需要'隔山打牛'", "自己的兵(9,3)就是'炮架'", "点击红炮，再点击黑卒(9,5)"],
     starSteps: [1, 2, 4], allowedPieces: ["rC"], aiDepth: 0
   },
@@ -41,7 +41,7 @@ const LEVELS = [
     id: 5, name: "小卒过河", subtitle: "兵的走法", chapter: 1, type: "tutorial",
     description: "兵每次只能向前走一步，过河后才能左右走。让红兵前进两步过河！",
     objective: { type: "move_to", piece: "rP", target: [4, 4] },
-    position: "9/9/9/9/9/9/4P4/9/9/9",
+    position: "4k4/9/9/9/9/9/4P4/9/9/3K5",
     hints: ["兵只能向前走，每次一格", "过了楚河汉界（第5条线）才能左右走"],
     starSteps: [2, 3, 5], allowedPieces: ["rP"], aiDepth: 0
   },
@@ -51,7 +51,7 @@ const LEVELS = [
     id: 6, name: "士象护主", subtitle: "防守棋子", chapter: 2, type: "offensive",
     description: "黑車正在将军红帅！用红士斜走吃掉黑車，保护将帅！",
     objective: { type: "capture", piece: "bR", by: "rA" },
-    position: "9/9/9/9/9/9/9/9/4r4/3A1K4",
+    position: "4k4/9/9/9/9/9/9/9/4r4/3A1K4",
     hints: ["士只能在九宫内斜走一格", "红士在(9,3)可以斜走到(8,4)吃掉黑車"],
     starSteps: [1, 2, 4], allowedPieces: null, aiDepth: 1, aiAggressive: true
   },
@@ -59,7 +59,7 @@ const LEVELS = [
     id: 7, name: "車的威风", subtitle: "连续吃子", chapter: 2, type: "offensive",
     description: "用红車连续吃掉三个黑卒！",
     objective: { type: "capture_all", pieces: ["bP", "bP", "bP"] },
-    position: "9/9/9/9/9/9/9/9/9/R1p1p1p2",
+    position: "4k4/9/9/9/9/9/9/3K5/9/R1p1p1p2",
     hints: ["車可以横竖走任意格", "先吃掉最近的黑卒", "计划好路线"],
     starSteps: [3, 4, 6], allowedPieces: ["rR"], aiDepth: 1
   },
@@ -67,7 +67,7 @@ const LEVELS = [
     id: 8, name: "馬踏联营", subtitle: "双馬配合", chapter: 2, type: "offensive",
     description: "两个馬配合起来威力更大。用双馬消灭两个黑卒！",
     objective: { type: "capture_all", pieces: ["bP", "bP"] },
-    position: "9/9/9/9/9/9/9/p1p6/9/1N1N5",
+    position: "4k4/9/9/9/9/9/9/p1p6/9/1N1N1K3",
     hints: ["双馬配合，各司其职", "左边的馬吃左边的卒，右边的馬吃右边的卒"],
     starSteps: [2, 3, 5], allowedPieces: ["rN"], aiDepth: 1
   },
@@ -83,7 +83,7 @@ const LEVELS = [
     id: 10, name: "吃子大作战", subtitle: "多子配合", chapter: 2, type: "offensive",
     description: "合理运用車馬炮，吃掉所有黑卒！",
     objective: { type: "capture_all", pieces: ["bP", "bP", "bP"] },
-    position: "9/9/9/9/9/4C3p/9/2N5p/9/R7p",
+    position: "4k4/9/9/9/9/4C3p/9/2N5p/9/R4K2p",
     hints: ["車适合远距离直线吃子", "馬适合跳过障碍", "炮需要炮架才能吃子"],
     starSteps: [3, 4, 7], allowedPieces: null, aiDepth: 1
   },
@@ -91,7 +91,7 @@ const LEVELS = [
     id: 11, name: "双車错", subtitle: "经典杀法", chapter: 2, type: "offensive",
     description: "两个車配合起来威力巨大。吃掉黑将！",
     objective: { type: "capture", piece: "bK" },
-    position: "4k4/R7R/9/9/9/9/9/9/9/9",
+    position: "4k4/R7R/9/9/9/9/9/9/9/3K5",
     hints: ["先用一个車将军，逼黑将移动", "另一个車在另一路完成击杀"],
     starSteps: [3, 4, 6], allowedPieces: null, aiDepth: 1
   },
