@@ -5,6 +5,18 @@
   box-sizing: border-box;
 }
 
+html, body {
+  user-select: none;
+  -webkit-user-select: none;
+  cursor: default;
+}
+
+input, textarea {
+  user-select: text;
+  -webkit-user-select: text;
+  cursor: text;
+}
+
 :root {
   --bg-paper: #F5F0E8;
   --bg-paper-dark: #EBE4D6;
