@@ -204,12 +204,12 @@ const LEVELS = [
     starSteps: [3, 4, 7], allowedPieces: null, aiDepth: 4
   },
   {
-    id: 25, name: "终极挑战", subtitle: "三步杀", chapter: 4, type: "offensive",
-    description: "車馬炮三子归边，黑方将士残守。综合运用所学，三步内将死黑方！最后的考验！",
+    id: 25, name: "终极挑战", subtitle: "最后的考验", chapter: 4, type: "offensive",
+    description: "車馬炮三子联攻，黑方士象全死守。运用所学，将死黑方！",
     objective: { type: "checkmate", targetColor: "black" },
-    position: "4k4/3a5/2C3N2/7R1/9/9/9/9/9/3K5",
-    hints: [ "車馬炮三子联动，先用车将、再用马控、炮绝杀", "注意黑将只有(0,3)可逃", "提前算好三步的连贯走法" ],
-    starSteps: [3, 4, 7], allowedPieces: null, aiDepth: 4
+    position: "3aka3/9/b3b4/9/1C3N2R/9/9/9/9/3K5",
+    hints: [ "炮可借士打将，車馬跟进压缩黑将空间", "先破士象再锁将，三步三星更佳", "注意象在中路的防守作用" ],
+    starSteps: [3, 5, 8], allowedPieces: null, aiDepth: 4
   }
 ];
 
