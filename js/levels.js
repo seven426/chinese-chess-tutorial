@@ -1,6 +1,6 @@
 /**
  * Level Definitions for Chinese Chess Tutorial 2.0
- * 29 levels across 4 chapters
+ * 26 levels across 4 chapters
  */
 
 const LEVELS = [
@@ -8,7 +8,7 @@ const LEVELS = [
   {
     id: 1, name: "初识将帅", subtitle: "认识九宫格", chapter: 1, type: "tutorial",
     description: "将帅是棋盘上最重要的棋子，只能在九宫格内一格一格地移动。试着把红帅向上走一步！",
-    objective: { type: "move_to", piece: "rK", target: [8, 4] },
+    objective: { type: "move_to", piece: "rK", target: [7, 4] },
     position: "5k3/9/9/9/9/9/9/9/9/4K4",
     hints: ["将帅只能在九宫内移动", "每次只能走一格，横竖都可以", "点击红帅，再点击它上方的格子"],
     starSteps: [2, 3, 5], allowedPieces: ["rK"], aiDepth: 1
@@ -39,22 +39,22 @@ const LEVELS = [
   },
   {
     id: 5, name: "小卒过河", subtitle: "兵的走法", chapter: 1, type: "tutorial",
-    description: "兵每次只能向前走一步，过河后才能左右走。让红兵前进两步过河！",
-    objective: { type: "move_to", piece: "rP", target: [4, 4] },
+    description: "兵每次只能向前走一步，过河后才能左右走。合理用兵，将死黑方！",
+    objective: { type: "checkmate", targetColor: "black" },
     position: "4k4/9/9/9/9/9/4P4/9/9/3K5",
     hints: ["兵只能向前走，每次一格", "过了楚河汉界（第5条线）才能左右走"],
-    starSteps: [2, 3, 5], allowedPieces: ["rP"], aiDepth: 0
+    starSteps: [2, 3, 5], allowedPieces: null, aiDepth: 0
   },
 
 
   // === New Chapter 1 additions: 蹩脚马, 象, 士, 老将照面 ===
   {
     id: 6, name: "蹩脚马", subtitle: "马的蹩腿", chapter: 1, type: "tutorial",
-    description: "黑马正在将军，帅被双士困住无路可逃！唯一的生路是把车移到(7,4)塞住蹩马腿！",
-    objective: { type: "move_to", piece: "rR", target: [7, 4] },
+    description: "黑马正在将军，帅被双士困住无路可逃！利用蹩马腿规则解围，最终将死黑方！",
+    objective: { type: "checkmate", targetColor: "black" },
     position: "5k3/9/9/9/9/9/4n4/3A3R1/3KA4/4p4",
-    hints: ["帅被自己的双士困在角落，无处可逃", "把红车(7,7)移到(7,4)，塞住黑马的蹩马腿", "蹩马腿被塞后，马跳不动，帅就安全了！"],
-    starSteps: [1, 2, 3], allowedPieces: ["rR"], aiDepth: 0
+    hints: ["帅被双士困在角落无法移动，必须用车塞蹩马腿解围", "车移到(7,4)塞住蹩马腿，马跳不动了", "解围后再用車馬配合将死黑方"],
+    starSteps: [3, 5, 8], allowedPieces: null, aiDepth: 1
   },
   {
     id: 7, name: "象眼迷雾", subtitle: "塞象眼+象的走法", chapter: 1, type: "tutorial",
@@ -65,33 +65,25 @@ const LEVELS = [
     starSteps: [3, 5, 7], allowedPieces: null, aiDepth: 0
   },
   {
-    id: 8, name: "士守九宫", subtitle: "士的走法", chapter: 1, type: "tutorial",
-    description: "士只能在九宫内斜走一格。用士走到(8,4)吃掉黑卒！",
-    objective: { type: "capture", piece: "bP", at: [8, 4] },
-    position: "4k4/9/9/9/9/9/9/9/4p4/3A1K3",
-    hints: ["士只能在九宫内斜走", "从(9,3)斜走到(8,4)", "士走不到九宫外面"],
-    starSteps: [1, 2, 3], allowedPieces: ["rA"], aiDepth: 0
+    id: 8, name: "士守九宫", subtitle: "士象防守", chapter: 1, type: "defensive",
+    description: "帅被士象围在九宫动弹不得，黑方双車虎视眈眈。用士象守住要道，撑过6步！",
+    objective: { type: "survive_n_moves", n: 6 },
+    position: "3aka3/9/9/6P2/5r3/9/4P4/4B4/5r3/2BAKA3",
+    hints: ["士象守住九宫要道，提前移动封堵黑車进攻线路", "注意双車错杀法，移动士象时不要自毁防线", "九宫内的子力是最后屏障，不要轻易移动帅"],
+    starSteps: [6, 8, 10], allowedPieces: null, aiDepth: 3, aiAggressive: true
   },
   {
     id: 9, name: "老将照面", subtitle: "将帅不照面", chapter: 1, type: "tutorial",
-    description: "将帅不能在同一直线上且中间无子（照面）。黑車将军！帅只能逃到(8,3)，不能走(9,4)以免照面！",
-    objective: { type: "escape_check", withinMoves: 1 },
-    position: "4k4/9/9/9/9/9/9/9/9/r2K5",
-    hints: ["将帅不能在同列中间无子的情况下照面", "帅走到(9,4)会和黑将照面，非法！", "帅只能走到(8,3)"],
-    starSteps: [1, 2, 3], allowedPieces: null, aiDepth: 0
+    description: "将帅不能在同一直线且中间无子（照面）。黑車隔红車将军失败，轮到红方反攻将死黑方！",
+    objective: { type: "checkmate", targetColor: "black" },
+    position: "4k4/9/9/9/9/9/9/9/9/r1RK5",
+    hints: ["将帅不能在同一列中间无子时照面", "红車挡住黑車后，红方反攻", "注意帅移动时不要制造照面"],
+    starSteps: [2, 4, 6], allowedPieces: null, aiDepth: 1
   },
 
-  // ===== Chapter 2: 攻其不备 (10-17) =====
+  // ===== Chapter 2: 攻其不备 (10-16) =====
   {
-    id: 10, name: "士象护主", subtitle: "防守棋子", chapter: 2, type: "offensive",
-    description: "黑車正在将军红帅！用红士斜走吃掉黑車，保护将帅！",
-    objective: { type: "capture", piece: "bR", by: "rA" },
-    position: "4k4/9/9/9/9/9/9/9/4r4/3A1K4",
-    hints: ["士只能在九宫内斜走一格", "红士在(9,3)可以斜走到(8,4)吃掉黑車"],
-    starSteps: [1, 2, 4], allowedPieces: null, aiDepth: 1, aiAggressive: true
-  },
-  {
-    id: 11, name: "車的威风", subtitle: "连续吃子", chapter: 2, type: "offensive",
+    id: 10, name: "車的威风", subtitle: "连续吃子", chapter: 2, type: "offensive",
     description: "用红車连续吃掉三个黑卒！",
     objective: { type: "capture_all", pieces: ["bP", "bP", "bP"] },
     position: "4k4/9/9/9/9/9/9/3K5/9/R1p1p1p2",
@@ -99,7 +91,7 @@ const LEVELS = [
     starSteps: [3, 4, 6], allowedPieces: ["rR"], aiDepth: 1
   },
   {
-    id: 12, name: "馬踏联营", subtitle: "双馬配合", chapter: 2, type: "offensive",
+    id: 11, name: "馬踏联营", subtitle: "双馬配合", chapter: 2, type: "offensive",
     description: "两个馬配合起来威力更大。用双馬消灭两个黑卒！",
     objective: { type: "capture_all", pieces: ["bP", "bP"] },
     position: "4k4/9/9/9/9/9/9/p1p6/9/1N1N1K3",
@@ -107,15 +99,7 @@ const LEVELS = [
     starSteps: [2, 3, 5], allowedPieces: ["rN"], aiDepth: 1
   },
   {
-    id: 13, name: "将军！", subtitle: "一步将军", chapter: 2, type: "offensive",
-    description: "用红車走一步直接将军黑将！",
-    objective: { type: "check", targetColor: "black" },
-    position: "3aka3/3R5/9/9/9/9/9/9/9/3K5",
-    hints: ["将军就是将帅被对方攻击", "車在同一直线上且中间无子时将军"],
-    starSteps: [1, 2, 4], allowedPieces: ["rR"], aiDepth: 1
-  },
-  {
-    id: 14, name: "吃子大作战", subtitle: "多子配合", chapter: 2, type: "offensive",
+    id: 12, name: "吃子大作战", subtitle: "多子配合", chapter: 2, type: "offensive",
     description: "合理运用車馬炮，吃掉所有黑卒！",
     objective: { type: "capture_all", pieces: ["bP", "bP", "bP"] },
     position: "4k4/9/9/9/9/4C3p/9/2N5p/9/R4K2p",
@@ -123,7 +107,7 @@ const LEVELS = [
     starSteps: [3, 4, 7], allowedPieces: null, aiDepth: 1
   },
   {
-    id: 15, name: "双車错", subtitle: "经典杀法", chapter: 2, type: "offensive",
+    id: 13, name: "双車错", subtitle: "经典杀法", chapter: 2, type: "offensive",
     description: "两个車配合起来威力巨大。吃掉黑将！",
     objective: { type: "capture", piece: "bK" },
     position: "4k4/R7R/9/9/9/9/9/9/9/3K5",
@@ -131,7 +115,7 @@ const LEVELS = [
     starSteps: [3, 4, 6], allowedPieces: null, aiDepth: 1
   },
   {
-    id: 16, name: "馬后炮", subtitle: "经典杀法", chapter: 2, type: "offensive",
+    id: 14, name: "馬后炮", subtitle: "经典杀法", chapter: 2, type: "offensive",
     description: "马跳到将的前面将军，炮在马的后面形成杀势。完成馬后炮杀法！",
     objective: { type: "check", targetColor: "black" },
     position: "4k4/9/9/2N1C4/9/9/9/9/9/3K5",
@@ -139,7 +123,7 @@ const LEVELS = [
     starSteps: [2, 3, 5], allowedPieces: null, aiDepth: 2
   },
   {
-    id: 17, name: "重炮杀", subtitle: "经典杀法", chapter: 2, type: "offensive",
+    id: 15, name: "重炮杀", subtitle: "经典杀法", chapter: 2, type: "offensive",
     description: "两个炮在同一条线上，前面的炮做炮架，后面的炮将军。完成重炮杀！",
     objective: { type: "check", targetColor: "black" },
     position: "3aka3/9/4C4/9/9/3C5/9/9/9/4K4",
@@ -147,9 +131,9 @@ const LEVELS = [
     starSteps: [1, 2, 3], allowedPieces: null, aiDepth: 2
   },
 
-  // ===== Chapter 3: 守中带攻 (18-24) =====
+  // ===== Chapter 3: 守中带攻 (17-22) =====
   {
-    id: 18, name: "解杀逃将", subtitle: "躲避将军", chapter: 3, type: "defensive",
+    id: 16, name: "解杀逃将", subtitle: "躲避将军", chapter: 3, type: "defensive",
     description: "黑方車正在将军红帅！红帅不能直接吃掉車。把红帅移到安全位置！",
     objective: { type: "escape_check", withinMoves: 3 },
     position: "4k4/9/9/9/9/9/9/9/4r4/4K4",
@@ -157,7 +141,7 @@ const LEVELS = [
     starSteps: [1, 2, 4], allowedPieces: ["rK"], aiDepth: 2, aiAggressive: true
   },
   {
-    id: 19, name: "弃車保帅", subtitle: "垫将解围", chapter: 3, type: "defensive",
+    id: 17, name: "弃車保帅", subtitle: "垫将解围", chapter: 3, type: "defensive",
     description: "黑方炮打将！危急时刻，只能用车解围。舍车保帅！",
     objective: { type: "escape_check", withinMoves: 2 },
     position: "4k4/9/9/9/9/9/9/9/3Rn4/c1n1K4",
@@ -165,7 +149,7 @@ const LEVELS = [
     starSteps: [1, 2, 3], allowedPieces: ["rR"], aiDepth: 2, aiAggressive: true
   },
   {
-    id: 20, name: "顺手牵羊", subtitle: "解杀反击", chapter: 3, type: "defensive",
+    id: 18, name: "顺手牵羊", subtitle: "解杀反击", chapter: 3, type: "defensive",
     description: "黑方馬正在将军！危急关头，红馬一跃而起吃掉黑馬，既解了杀又得了子！",
     objective: { type: "counter_capture", targetPiece: "bN", withinMoves: 2 },
     position: "3k5/9/9/9/9/9/9/3n5/9/2N1K4",
@@ -173,7 +157,7 @@ const LEVELS = [
     starSteps: [1, 2, 3], allowedPieces: ["rN"], aiDepth: 2, aiAggressive: true
   },
   {
-    id: 21, name: "化解危机", subtitle: "连环解杀", chapter: 3, type: "defensive",
+    id: 19, name: "化解危机", subtitle: "连环解杀", chapter: 3, type: "defensive",
     description: "黑方双車错攻势凶猛！底車将军，纵車被封，帅只能走(8,4)解围。",
     objective: { type: "escape_check", withinMoves: 2 },
     position: "3k5/9/9/9/9/4r4/9/4R4/9/r3K4",
@@ -181,15 +165,7 @@ const LEVELS = [
     starSteps: [1, 2, 4], allowedPieces: null, aiDepth: 2, aiAggressive: true
   },
   {
-    id: 22, name: "固若金汤", subtitle: "士象防守", chapter: 3, type: "defensive",
-    description: "黑方大军压境！用士象构建防线，在 3 步内不被将死。",
-    objective: { type: "survive_n_moves", n: 3 },
-    position: "4k4/9/9/9/9/9/9/9/4r4/3AK4",
-    hints: ["士可以在九宫内斜走", "用士挡住对方的攻势"],
-    starSteps: [2, 3, 4], allowedPieces: null, aiDepth: 2, aiAggressive: true
-  },
-  {
-    id: 23, name: "反客为主", subtitle: "解杀还杀", chapter: 3, type: "defensive",
+    id: 20, name: "反客为主", subtitle: "解杀还杀", chapter: 3, type: "defensive",
     description: "黑方車将军！解杀后立刻反将黑将。",
     objective: { type: "defend_and_check", withinMoves: 3 },
     position: "4k4/9/9/9/9/9/9/9/4r4/R3K4",
@@ -197,7 +173,7 @@ const LEVELS = [
     starSteps: [2, 3, 4], allowedPieces: null, aiDepth: 3, aiAggressive: true
   },
   {
-    id: 24, name: "绝地反击", subtitle: "防守反击", chapter: 3, type: "defensive",
+    id: 21, name: "绝地反击", subtitle: "防守反击", chapter: 3, type: "defensive",
     description: "黑車纵向将军！红車横向吃车，既解了将又顺势反将黑方！一箭双雕！",
     objective: { type: "defend_and_check", withinMoves: 2 },
     position: "4k4/9/9/9/9/2R1r4/9/9/9/4K4",
@@ -205,9 +181,9 @@ const LEVELS = [
     starSteps: [1, 2, 3], allowedPieces: null, aiDepth: 2, aiAggressive: true
   },
 
-  // ===== Chapter 4: 大师试炼 (25-29) =====
+  // ===== Chapter 4: 大师试炼 (23-27) =====
   {
-    id: 25, name: "残局妙手", subtitle: "一步制胜", chapter: 4, type: "offensive",
+    id: 22, name: "残局妙手", subtitle: "一步制胜", chapter: 4, type: "offensive",
     description: "看似无解的局面，其实有一步妙手可以将军！",
     objective: { type: "check", targetColor: "black" },
     position: "4k4/9/9/9/2N6/9/9/9/9/3K5",
@@ -215,7 +191,7 @@ const LEVELS = [
     starSteps: [1, 2, 3], allowedPieces: null, aiDepth: 3
   },
   {
-    id: 26, name: "兵贵神速", subtitle: "兵的妙用", chapter: 4, type: "offensive",
+    id: 23, name: "兵贵神速", subtitle: "兵的妙用", chapter: 4, type: "offensive",
     description: "兵虽然走得慢，但过河后威力大增。用兵配合其他子力完成杀局！",
     objective: { type: "checkmate", targetColor: "black" },
     position: "9/4k4/4N4/9/4P4/9/9/9/9/3K5",
@@ -223,7 +199,7 @@ const LEVELS = [
     starSteps: [3, 4, 6], allowedPieces: null, aiDepth: 3
   },
   {
-    id: 27, name: "双鬼拍门", subtitle: "残局杀法", chapter: 4, type: "offensive",
+    id: 24, name: "双鬼拍门", subtitle: "残局杀法", chapter: 4, type: "offensive",
     description: "車控制直线封锁逃路，馬灵活跳跃贴身将军，車馬配合完成绝杀！",
     objective: { type: "checkmate", targetColor: "black" },
     position: "4k4/9/9/9/9/9/9/9/9/R2K2N2",
@@ -231,7 +207,7 @@ const LEVELS = [
     starSteps: [3, 4, 6], allowedPieces: null, aiDepth: 3
   },
   {
-    id: 28, name: "車馬冷着", subtitle: "综合残局", chapter: 4, type: "offensive",
+    id: 25, name: "車馬冷着", subtitle: "综合残局", chapter: 4, type: "offensive",
     description: "黑方双士护卫严密，红方車馬兵三子联攻。需要巧妙腾挪配合，撕开防线将死黑方！",
     objective: { type: "checkmate", targetColor: "black" },
     position: "3aka3/9/9/4N4/9/4P4/9/9/4R4/3K5",
@@ -239,7 +215,7 @@ const LEVELS = [
     starSteps: [3, 4, 7], allowedPieces: null, aiDepth: 4
   },
   {
-    id: 29, name: "终极挑战", subtitle: "最后的考验", chapter: 4, type: "offensive",
+    id: 26, name: "终极挑战", subtitle: "最后的考验", chapter: 4, type: "offensive",
     description: "車馬炮三子联攻，黑方士象全死守。运用所学，将死黑方！",
     objective: { type: "checkmate", targetColor: "black" },
     position: "3aka3/9/b3b4/9/1C3N2R/9/9/9/9/3K5",
@@ -252,9 +228,9 @@ const ACHIEVEMENTS = [
   { id: "first_step", name: "第一步", desc: "完成第一关", icon: "👣", condition: (s) => s.completedLevels.length >= 1 },
   { id: "novice", name: "小棋手", desc: "完成5关", icon: "🎯", condition: (s) => s.completedLevels.length >= 5 },
   { id: "intermediate", name: "棋艺初成", desc: "完成10关", icon: "♟️", condition: (s) => s.completedLevels.length >= 10 },
-  { id: "master", name: "象棋大师", desc: "完成全部29关", icon: "👑", condition: (s) => s.completedLevels.length >= 29 },
+  { id: "master", name: "象棋大师", desc: "完成全部26关", icon: "👑", condition: (s) => s.completedLevels.length >= 26 },
   { id: "perfect", name: "完美主义", desc: "任意一关获得3星", icon: "⭐", condition: (s) => Object.values(s.levelStars).some(v => v === 3) },
-  { id: "all_perfect", name: "全满星", desc: "所有关卡获得3星", icon: "🌟", condition: (s) => Object.values(s.levelStars).filter(v => v === 3).length >= 29 },
+  { id: "all_perfect", name: "全满星", desc: "所有关卡获得3星", icon: "🌟", condition: (s) => Object.values(s.levelStars).filter(v => v === 3).length >= 26 },
   { id: "speed_demon", name: "速度之星", desc: "在5步内完成第11关", icon: "⚡", condition: (s) => s.levelSteps[11] && s.levelSteps[11] <= 5 },
   { id: "no_hint", name: "独立思考", desc: "不使用提示完成任意一关", icon: "💡", condition: (s) => s.noHintLevels && s.noHintLevels.length >= 1 },
   { id: "persistent", name: "百折不挠", desc: "某一关尝试了5次以上", icon: "🔥", condition: (s) => Object.values(s.levelAttempts).some(a => a >= 5) },

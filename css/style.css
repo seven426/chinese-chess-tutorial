@@ -525,24 +525,40 @@ body {
 }
 
 /* ===== RIVER ===== */
-.board-labels {
+.river-label {
   position: absolute;
-  left: 50%;
-  top: 260px;
-  transform: translate(-50%, -50%);
-  display: flex;
-  gap: 40px;
+  font-family: 'Ma Shan Zheng', cursive;
+  font-size: 1.4rem;
+  color: rgba(139, 90, 43, 0.35);
+  writing-mode: horizontal-tb;
   pointer-events: none;
   z-index: 5;
+  transform: translate(-50%, -50%);
 }
 
-.river-label {
-  font-family: 'Ma Shan Zheng', cursive;
-  font-size: 1.6rem;
-  color: rgba(139, 90, 43, 0.4);
-  writing-mode: vertical-rl;
-  text-orientation: upright;
-  letter-spacing: 8px;
+.river-chu {
+  left: 130px;
+  top: 260px;
+}
+
+.river-han {
+  left: 338px;
+  top: 260px;
+}
+
+/* ===== COORDINATE LABELS ===== */
+.coord-label {
+  position: absolute;
+  font-family: sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  color: #8b5a2b;
+  z-index: 6;
+  pointer-events: none;
+  user-select: none;
+  width: 16px;
+  text-align: center;
+  line-height: 1;
 }
 
 /* ===== SIDE PANEL ===== */

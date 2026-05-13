@@ -266,6 +266,25 @@ const App = {
 
     boardEl.appendChild(svg);
 
+    // Row labels (0-9) — outside left edge, aligned with horizontal grid lines
+    for (let r = 0; r < 10; r++) {
+      const label = document.createElement('div');
+      label.className = 'coord-label coord-row';
+      label.style.left = '4px';
+      label.style.top = `${26 + r * 52 - 8}px`;
+      label.textContent = r;
+      boardEl.appendChild(label);
+    }
+    // Column labels (0-8) — above top edge, aligned with vertical grid lines
+    for (let c = 0; c < 9; c++) {
+      const label = document.createElement('div');
+      label.className = 'coord-label coord-col';
+      label.style.left = `${26 + c * 52 - 8}px`;
+      label.style.top = '4px';
+      label.textContent = c;
+      boardEl.appendChild(label);
+    }
+
     // Last move highlights
     if (this.lastMove) {
       for (const pos of [this.lastMove.from, this.lastMove.to]) {
