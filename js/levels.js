@@ -57,12 +57,12 @@ const LEVELS = [
     starSteps: [1, 2, 3], allowedPieces: ["rR"], aiDepth: 0
   },
   {
-    id: 7, name: "象走田字", subtitle: "象的走法", chapter: 1, type: "tutorial",
-    description: "象走'田'字对角，不能过河，塞象眼则不能走。用象吃掉黑卒！",
-    objective: { type: "capture", piece: "bP", at: [7, 0] },
-    position: "4k4/9/9/9/9/9/9/2p6/9/2B2K3",
-    hints: ["象走田字：对角两格", "象不能过楚河汉界", "象眼被塞住时不能走"],
-    starSteps: [1, 2, 3], allowedPieces: ["rB"], aiDepth: 0
+    id: 7, name: "象眼迷雾", subtitle: "塞象眼+象的走法", chapter: 1, type: "tutorial",
+    description: "象走田字，象眼被塞则不能动。马跳(1,5)蒙双象眼，車馬配合将死黑方！",
+    objective: { type: "checkmate", targetColor: "black" },
+    position: "3k1ab2/4a4/2R1b4/6N2/9/9/9/9/9/4K4",
+    hints: ["马跳到(1,5)，这个位置同时是两只象的象眼", "象眼被塞后，象就不能动了", "再用車逐个吃掉两只象"],
+    starSteps: [3, 5, 7], allowedPieces: null, aiDepth: 0
   },
   {
     id: 8, name: "士守九宫", subtitle: "士的走法", chapter: 1, type: "tutorial",
