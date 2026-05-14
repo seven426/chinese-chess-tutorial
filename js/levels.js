@@ -169,7 +169,7 @@ const LEVELS = [
     id: 20, name: "终极挑战", subtitle: "最后的考验", chapter: 4, type: "offensive",
     description: "車馬炮三子联攻，黑方士象全死守。运用所学，将死黑方！",
     objective: { type: "checkmate", targetColor: "black" },
-    position: "2baka3/9/b8/9/1C3N2R/9/9/9/9/3K5",
+    position: "2baka3/9/b4c3/9/1C3N2R/9/9/9/9/3K5",
     hints: [ "炮可借士打将，車馬跟进压缩黑将空间", "先破士象再锁将，三步三星更佳", "注意象在中路的防守作用" ],
     starSteps: [3, 5, 8], allowedPieces: null, aiDepth: 4
   }
