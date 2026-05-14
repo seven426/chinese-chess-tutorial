@@ -117,7 +117,7 @@ const LEVELS = [
     id: 14, name: "馬后炮", subtitle: "经典杀法", chapter: 2, type: "offensive",
     description: "马跳到将的前面将军，炮在马的后面形成杀势。完成馬后炮杀法！",
     objective: { type: "check", targetColor: "black" },
-    position: "4k4/9/9/2N1C4/9/9/9/9/9/3K5",
+    position: "4k4/9/8r/2N1C4/9/9/9/5n3/9/3K5",
     hints: ["馬后炮是马做炮架、炮隔马打将", "马跳到(2,4)做炮架，炮隔马将死黑将"],
     starSteps: [2, 3, 5], allowedPieces: null, aiDepth: 3
   },
@@ -125,7 +125,7 @@ const LEVELS = [
     id: 15, name: "重炮杀", subtitle: "经典杀法", chapter: 2, type: "offensive",
     description: "两个炮在同一条线上，前面的炮做炮架，后面的炮将军。完成重炮杀！",
     objective: { type: "check", targetColor: "black" },
-    position: "3aka3/9/4C4/9/9/3C5/9/9/9/4K4",
+    position: "3akab2/9/4C4/9/9/3C5/9/9/9/4K4",
     hints: ["两个炮在同一条线上", "后面的炮隔前面的炮打将"],
     starSteps: [1, 2, 3], allowedPieces: null, aiDepth: 3
   },
@@ -134,9 +134,9 @@ const LEVELS = [
 
   {
     id: 16, name: "弃車保帅", subtitle: "垫将解围", chapter: 3, type: "defensive",
-    description: "黑方炮打将！帅无路可逃，双车舍一车垫将解围，再反攻将死黑方！",
-    objective: { type: "escape_check", withinMoves: 2 },
-    position: "4k4/9/9/9/2R6/9/9/9/3Rn4/c1n1K4",
+    description: "黑方炮打将！帅无路可逃，双车舍一车垫将解围，再反攻将死黑方。学会弃子争先！",
+    objective: { type: "checkmate", targetColor: "black" },
+    position: "4k4/9/9/9/2R6/9/9/7C1/3Rn4/c1n1K4",
     hints: ["红车(8,3)走到(9,3)垫将，或(4,2)车支援", "炮隔黑马吃掉红车后帅就安全了", "双车配合更容易解围"],
     starSteps: [1, 2, 3], allowedPieces: null, aiDepth: 3
   },
