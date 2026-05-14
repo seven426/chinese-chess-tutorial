@@ -145,7 +145,7 @@ const LEVELS = [
     id: 17, name: "兵贵神速", subtitle: "兵的妙用", chapter: 4, type: "offensive",
     description: "兵虽然走得慢，但过河后威力大增。用兵配合其他子力完成杀局！",
     objective: { type: "checkmate", targetColor: "black" },
-    position: "9/4k4/4N4/9/4P4/9/9/9/9/3K5",
+    position: "9/4k4/4N4/5a3/4P4/9/9/9/9/3K5",
     hints: ["兵向前走一步可以将军", "用馬配合也能将军"],
     starSteps: [3, 4, 6], allowedPieces: null, aiDepth: 4
   },
