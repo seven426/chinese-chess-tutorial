@@ -59,7 +59,7 @@ const LEVELS = [
     id: 7, name: "象眼迷雾", subtitle: "塞象眼+象的走法", chapter: 1, type: "tutorial",
     description: "象走田字，象眼被塞则不能动。马跳关键位置蒙住双象眼，車馬配合将死黑方！",
     objective: { type: "checkmate", targetColor: "black" },
-    position: "3k1ab2/4a4/2R1b4/6N2/9/9/9/9/9/4K4",
+    position: "3k1ab2/4a4/2R1b4/5PN2/9/9/9/9/9/4K4",
     hints: ["马跳到(1,5)，这个位置同时是两只象的象眼", "象眼被塞后，象就不能动了", "再用車逐个吃掉两只象"],
     starSteps: [3, 5, 7], allowedPieces: null, aiDepth: 3
   },
