@@ -82,12 +82,12 @@ const LEVELS = [
 
   // ===== Chapter 2: 攻其不备 =====
   {
-    id: 10, name: "車的威风", subtitle: "连续吃子", chapter: 2, type: "offensive",
-    description: "用红車连续吃掉三个黑卒！",
-    objective: { type: "capture_all", pieces: ["bP", "bP", "bP"] },
-    position: "4k4/9/9/9/9/9/9/3K5/9/R1p1p1p2",
-    hints: ["車可以横竖走任意格", "先吃掉最近的黑卒", "计划好路线"],
-    starSteps: [3, 4, 6], allowedPieces: ["rR"], aiDepth: 1
+    id: 10, name: "車的威风", subtitle: "单车破双士", chapter: 2, type: "offensive",
+    description: "单车破双士是经典残局。用车的威力撕开士的防线，将死黑方！",
+    objective: { type: "checkmate", targetColor: "black" },
+    position: "3k1a3/4a4/9/9/9/9/4R4/9/9/4K4",
+    hints: ["車控制要道，逐步压缩黑将活动空间", "先用車牵着黑士走，伺机将军", "注意不要被黑士挡住車的路线"],
+    starSteps: [3, 5, 8], allowedPieces: null, aiDepth: 2
   },
   {
     id: 11, name: "馬踏联营", subtitle: "双馬配合", chapter: 2, type: "offensive",
