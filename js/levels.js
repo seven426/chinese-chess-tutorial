@@ -159,9 +159,9 @@ const LEVELS = [
   },
   {
     id: 19, name: "車馬冷着", subtitle: "综合残局", chapter: 4, type: "offensive",
-    description: "黑方双士死守，红方車馬兵三子压境。腾挪配合，层层推进将死黑方！",
+    description: "黑方士象全死守，红方車馬兵三子压境。腾挪配合，层层推进将死黑方！",
     objective: { type: "checkmate", targetColor: "black" },
-    position: "3aka3/9/9/4N4/9/4P4/9/9/4R4/3K5",
+    position: "3akab2/9/4b4/4N4/9/4P4/9/9/4R4/3K5",
     hints: [ "車馬兵三子配合，逐步压缩黑将空间", "先用车控制要道，馬兵伺机将军", "注意黑方士象的防守作用" ],
     starSteps: [3, 4, 7], allowedPieces: null, aiDepth: 4
   },
