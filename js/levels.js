@@ -19,7 +19,7 @@ const LEVELS = [
     objective: { type: "capture", piece: "bP", at: [6, 7] },
     position: "4k4/9/9/9/9/9/7p1/3K5/9/R8",
     hints: ["車走直线，不限格数", "点击红車，再点击黑卒的位置"],
-    starSteps: [1, 2, 4], allowedPieces: null, aiDepth: 0
+    starSteps: [1, 2, 4], allowedPieces: null, aiDepth: 2
   },
   {
     id: 3, name: "馬走日字", subtitle: "馬的走法", chapter: 1, type: "tutorial",
@@ -27,15 +27,15 @@ const LEVELS = [
     objective: { type: "capture", piece: "bP", at: [4, 2] },
     position: "4k4/9/9/5N3/2p6/9/9/9/5K3/9",
     hints: ["馬走日字：先直走两格，再斜走一格", "从(3,5)出发，需要两步才能吃到(4,2)的黑卒"],
-    starSteps: [1, 2, 4], allowedPieces: null, aiDepth: 0
+    starSteps: [1, 2, 4], allowedPieces: null, aiDepth: 2
   },
   {
     id: 4, name: "隔山打牛", subtitle: "炮的吃子", chapter: 1, type: "tutorial",
     description: "炮吃子必须隔一个炮架。双炮借帅做架，隔山打牛将死黑方！",
     objective: { type: "checkmate", targetColor: "black" },
-    position: "4k4/9/9/9/5C3/9/9/9/4p4/1C1K1p3",
+    position: "5k3/9/9/9/5C3/9/9/9/4p4/1C1K1p3",
     hints: ["炮吃子需要'隔山打牛'——必须隔一个棋子", "炮(9,1)可以隔黑卒(9,5)打到更远的目标", "注意观察炮架的位置"],
-    starSteps: [1, 2, 4], allowedPieces: null, aiDepth: 0
+    starSteps: [1, 2, 4], allowedPieces: null, aiDepth: 3
   },
   {
     id: 5, name: "小卒过河", subtitle: "兵的走法", chapter: 1, type: "tutorial",
@@ -43,7 +43,7 @@ const LEVELS = [
     objective: { type: "checkmate", targetColor: "black" },
     position: "4k4/9/9/9/9/9/4P4/9/9/3K5",
     hints: ["兵只能向前走，每次一格", "过了楚河汉界（第5条线）才能左右走"],
-    starSteps: [2, 3, 5], allowedPieces: null, aiDepth: 0
+    starSteps: [2, 3, 5], allowedPieces: null, aiDepth: 3
   },
 
   // === New Chapter 1 additions: 蹩脚马, 象, 士, 老将照面 ===
@@ -51,9 +51,9 @@ const LEVELS = [
     id: 6, name: "蹩脚马", subtitle: "马的蹩腿", chapter: 1, type: "tutorial",
     description: "黑马正在将军，帅被双士困住无路可逃！利用蹩马腿规则解围，最终将死黑方！",
     objective: { type: "checkmate", targetColor: "black" },
-    position: "5k3/9/5P3/9/9/9/4n4/3A3R1/3KA4/4p4",
+    position: "5k3/9/5P3/2N6/9/9/4n4/3A3R1/3KA4/4p4",
     hints: ["帅被双士困在角落无法移动，必须用车塞蹩马腿解围", "车移到(7,4)塞住蹩马腿，马跳不动了", "解围后再用車馬配合将死黑方"],
-    starSteps: [3, 5, 8], allowedPieces: null, aiDepth: 1
+    starSteps: [3, 5, 8], allowedPieces: null, aiDepth: 3
   },
   {
     id: 7, name: "象眼迷雾", subtitle: "塞象眼+象的走法", chapter: 1, type: "tutorial",
@@ -61,7 +61,7 @@ const LEVELS = [
     objective: { type: "checkmate", targetColor: "black" },
     position: "3k1ab2/4a4/2R1b4/6N2/9/9/9/9/9/4K4",
     hints: ["马跳到(1,5)，这个位置同时是两只象的象眼", "象眼被塞后，象就不能动了", "再用車逐个吃掉两只象"],
-    starSteps: [3, 5, 7], allowedPieces: null, aiDepth: 0
+    starSteps: [3, 5, 7], allowedPieces: null, aiDepth: 3
   },
   {
     id: 8, name: "士守九宫", subtitle: "士象防守", chapter: 1, type: "defensive",
@@ -69,7 +69,7 @@ const LEVELS = [
     objective: { type: "survive_n_moves", n: 6 },
     position: "3aka3/9/9/6P2/5r3/9/4P4/4B4/5r3/2BAKA3",
     hints: ["士象守住九宫要道，提前移动封堵黑車进攻线路", "注意双車错杀法，移动士象时不要自毁防线", "九宫内的子力是最后屏障，不要轻易移动帅"],
-    starSteps: [6, 8, 10], allowedPieces: null, aiDepth: 3, aiAggressive: true
+    starSteps: [6, 8, 10], allowedPieces: null, aiDepth: 3
   },
   {
     id: 9, name: "老将照面", subtitle: "将帅不照面", chapter: 1, type: "tutorial",
@@ -77,7 +77,7 @@ const LEVELS = [
     objective: { type: "checkmate", targetColor: "black" },
     position: "4k4/9/9/9/9/9/9/9/9/r1RK5",
     hints: ["将帅不能在同一列中间无子时照面", "红車挡住黑車后，红方反攻", "注意帅移动时不要制造照面"],
-    starSteps: [2, 4, 6], allowedPieces: null, aiDepth: 1
+    starSteps: [2, 4, 6], allowedPieces: null, aiDepth: 3
   },
 
   // ===== Chapter 2: 攻其不备 =====
@@ -87,7 +87,7 @@ const LEVELS = [
     objective: { type: "checkmate", targetColor: "black" },
     position: "3k1a3/4a4/9/9/9/9/4R4/9/9/4K4",
     hints: ["車控制要道，逐步压缩黑将活动空间", "先用車牵着黑士走，伺机将军", "注意不要被黑士挡住車的路线"],
-    starSteps: [3, 5, 8], allowedPieces: null, aiDepth: 2
+    starSteps: [3, 5, 8], allowedPieces: null, aiDepth: 3
   },
   {
     id: 11, name: "馬踏联营", subtitle: "双馬配合", chapter: 2, type: "offensive",
@@ -95,7 +95,7 @@ const LEVELS = [
     objective: { type: "checkmate", targetColor: "black" },
     position: "4ka3/4a4/9/9/9/9/9/p1p6/9/1N1N1K3",
     hints: ["双馬配合，互相掩护，逐个击破", "先用一馬将军逼黑将移动，另一馬跟进", "黑士的活动空间有限，马可以绕开"],
-    starSteps: [3, 5, 8], allowedPieces: null, aiDepth: 2
+    starSteps: [3, 5, 8], allowedPieces: null, aiDepth: 3
   },
   {
     id: 12, name: "钓鱼马", subtitle: "经典杀法", chapter: 2, type: "offensive",
@@ -103,7 +103,7 @@ const LEVELS = [
     objective: { type: "checkmate", targetColor: "black" },
     position: "2bakab2/5P3/6N2/9/2r6/9/9/9/4p4/5K3",
     hints: ["马跳到(0,5)的钓鱼位，控制黑将的逃路", "兵在(1,5)保护马不被士吃", "马到位后，帅横移控制要道，黑将无路可逃"],
-    starSteps: [3, 4, 6], allowedPieces: null, aiDepth: 2
+    starSteps: [3, 4, 6], allowedPieces: null, aiDepth: 3
   },
   {
     id: 13, name: "双車错", subtitle: "经典杀法", chapter: 2, type: "offensive",
@@ -111,7 +111,7 @@ const LEVELS = [
     objective: { type: "checkmate", targetColor: "black" },
     position: "2baka3/R7R/4b4/9/9/9/9/9/9/3K5",
     hints: ["先用车将军逼黑将移动，另一车封锁逃路", "注意黑方士象的防守，逐个击破", "双車交替将军是关键"],
-    starSteps: [3, 4, 6], allowedPieces: null, aiDepth: 1
+    starSteps: [3, 4, 6], allowedPieces: null, aiDepth: 3
   },
   {
     id: 14, name: "馬后炮", subtitle: "经典杀法", chapter: 2, type: "offensive",
@@ -119,7 +119,7 @@ const LEVELS = [
     objective: { type: "check", targetColor: "black" },
     position: "4k4/9/9/2N1C4/9/9/9/9/9/3K5",
     hints: ["馬后炮是马做炮架、炮隔马打将", "马跳到(2,4)做炮架，炮隔马将死黑将"],
-    starSteps: [2, 3, 5], allowedPieces: null, aiDepth: 2
+    starSteps: [2, 3, 5], allowedPieces: null, aiDepth: 3
   },
   {
     id: 15, name: "重炮杀", subtitle: "经典杀法", chapter: 2, type: "offensive",
@@ -127,7 +127,7 @@ const LEVELS = [
     objective: { type: "check", targetColor: "black" },
     position: "3aka3/9/4C4/9/9/3C5/9/9/9/4K4",
     hints: ["两个炮在同一条线上", "后面的炮隔前面的炮打将"],
-    starSteps: [1, 2, 3], allowedPieces: null, aiDepth: 2
+    starSteps: [1, 2, 3], allowedPieces: null, aiDepth: 3
   },
 
   // ===== Chapter 3: 守中带攻 =====
@@ -138,7 +138,7 @@ const LEVELS = [
     objective: { type: "escape_check", withinMoves: 2 },
     position: "4k4/9/9/9/2R6/9/9/9/3Rn4/c1n1K4",
     hints: ["红车(8,3)走到(9,3)垫将，或(4,2)车支援", "炮隔黑马吃掉红车后帅就安全了", "双车配合更容易解围"],
-    starSteps: [1, 2, 3], allowedPieces: null, aiDepth: 2, aiAggressive: true
+    starSteps: [1, 2, 3], allowedPieces: null, aiDepth: 3
   },
 
   {
@@ -147,7 +147,7 @@ const LEVELS = [
     objective: { type: "checkmate", targetColor: "black" },
     position: "9/4k4/4N4/9/4P4/9/9/9/9/3K5",
     hints: ["兵向前走一步可以将军", "用馬配合也能将军"],
-    starSteps: [3, 4, 6], allowedPieces: null, aiDepth: 3
+    starSteps: [3, 4, 6], allowedPieces: null, aiDepth: 4
   },
   {
     id: 18, name: "双鬼拍门", subtitle: "残局杀法", chapter: 4, type: "offensive",
@@ -155,7 +155,7 @@ const LEVELS = [
     objective: { type: "checkmate", targetColor: "black" },
     position: "3a1kb2/4a1P2/5P2b/9/9/9/9/9/9/5K3",
     hints: [ "两个兵一左一右逼近九宫，限制黑将活动", "帅横向移动控制要道", "兵帅配合，一步步收紧包围圈" ],
-    starSteps: [3, 4, 6], allowedPieces: null, aiDepth: 3
+    starSteps: [3, 4, 6], allowedPieces: null, aiDepth: 4
   },
   {
     id: 19, name: "車馬冷着", subtitle: "综合残局", chapter: 4, type: "offensive",

@@ -465,9 +465,10 @@ const App = {
   },
 
   performAIMove() {
-    this.showAIThinking(true);
-
     const depth = this.currentLevel.aiDepth || 1;
+    const engineName = depth >= 3 ? 'Pikafish' : 'Minimax';
+    this.showAIThinking(true, engineName);
+
     const board = this.engine.board;
 
     this._fetchBackendMove(board, depth)
@@ -865,8 +866,16 @@ const App = {
       this.showToast('没有可以悔棋的步数');
       return;
     }
-    this.engine.undoMove();
-    this.steps = Math.max(0, this.steps - 1);
+    // Undo back to before red's last move: undo both AI move and red move if present
+    const lastMove = this.engine.moveHistory[this.engine.moveHistory.length - 1];
+    if (lastMove.player === 'black') {
+      this.engine.undoMove(); // undo black AI move
+    }
+    if (this.engine.moveHistory.length > 0 && this.engine.moveHistory[this.engine.moveHistory.length - 1].player === 'red') {
+      this.engine.undoMove(); // undo red move
+      this.steps = Math.max(0, this.steps - 1);
+    }
+    this.turnState = 'USER_TURN';
     this.lastMove = this.engine.moveHistory.length > 0
       ? { from: this.engine.moveHistory[this.engine.moveHistory.length - 1].from,
           to: this.engine.moveHistory[this.engine.moveHistory.length - 1].to }
@@ -874,6 +883,7 @@ const App = {
     this.clearSelection();
     this.updateStepCounter();
     this.updateHistory();
+    this.renderBoard();
   },
 
   // ===== ACHIEVEMENTS =====
@@ -954,10 +964,16 @@ const App = {
     animate();
   },
 
-  showAIThinking(show) {
+  showAIThinking(show, engineName) {
     const el = document.getElementById('ai-thinking');
-    if (show) el.classList.add('active');
-    else el.classList.remove('active');
+    const textEl = el.querySelector('span:last-child');
+    if (show) {
+      const name = engineName || 'AI';
+      textEl.textContent = '黑方思考中（' + name + '）...';
+      el.classList.add('active');
+    } else {
+      el.classList.remove('active');
+    }
   },
 
   showIllegalHint(text, boardR, boardC) {
