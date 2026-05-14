@@ -98,12 +98,12 @@ const LEVELS = [
     starSteps: [2, 3, 5], allowedPieces: ["rN"], aiDepth: 1
   },
   {
-    id: 12, name: "吃子大作战", subtitle: "多子配合", chapter: 2, type: "offensive",
-    description: "合理运用車馬炮，吃掉所有黑卒！",
-    objective: { type: "capture_all", pieces: ["bP", "bP", "bP"] },
-    position: "4k4/9/9/9/9/4C3p/9/2N5p/9/R4K2p",
-    hints: ["車适合远距离直线吃子", "馬适合跳过障碍", "炮需要炮架才能吃子"],
-    starSteps: [3, 4, 7], allowedPieces: null, aiDepth: 1
+    id: 12, name: "钓鱼马", subtitle: "经典杀法", chapter: 2, type: "offensive",
+    description: "钓鱼马是经典杀法——马在对方将旁钓鱼位，配合其他子力完成绝杀！",
+    objective: { type: "checkmate", targetColor: "black" },
+    position: "2bakab2/5P3/6N2/9/2r6/9/9/9/4p4/5K3",
+    hints: ["马跳到(0,5)的钓鱼位，控制黑将的逃路", "兵在(1,5)保护马不被士吃", "马到位后，帅横移控制要道，黑将无路可逃"],
+    starSteps: [3, 4, 6], allowedPieces: null, aiDepth: 2
   },
   {
     id: 13, name: "双車错", subtitle: "经典杀法", chapter: 2, type: "offensive",
