@@ -30,16 +30,26 @@ const App = {
     document.getElementById('btn-reset').onclick = () => this.resetProgress();
     document.getElementById('btn-map-back').onclick = () => this.showMenu();
     document.getElementById('btn-game-back').onclick = () => this.showMap();
+    document.getElementById('btn-prev-level').onclick = () => {
+      if (this.currentLevel && this.currentLevel.id > 1) this.startLevel(this.currentLevel.id - 1);
+    };
+    document.getElementById('btn-next-level').onclick = () => {
+      if (!this.currentLevel) return;
+      const nextId = this.currentLevel.id + 1;
+      if (nextId <= LEVELS.length && this.progress.completedLevels.includes(nextId)) {
+        this.startLevel(nextId);
+      }
+    };
+    document.getElementById('btn-victory-next').onclick = () => {
+      this.hideModal('victory-modal');
+      const nextId = this.currentLevel ? this.currentLevel.id + 1 : 0;
+      if (nextId > 0 && nextId <= LEVELS.length) this.startLevel(nextId);
+      else this.showMap();
+    };
     document.getElementById('btn-hint').onclick = () => this.showHint();
     document.getElementById('btn-restart').onclick = () => this.restartLevel();
     document.getElementById('btn-undo').onclick = () => this.undoMove();
     document.getElementById('btn-replay').onclick = () => { this.hideModal('victory-modal'); this.restartLevel(); };
-    document.getElementById('btn-next-level').onclick = () => {
-      this.hideModal('victory-modal');
-      const nextId = this.currentLevel.id + 1;
-      if (nextId <= LEVELS.length) this.startLevel(nextId);
-      else this.showMap();
-    };
     document.getElementById('btn-hint-close').onclick = () => this.hideModal('hint-modal');
     document.getElementById('btn-failure-replay').onclick = () => { this.hideModal('failure-modal'); this.restartLevel(); };
     document.getElementById('btn-failure-back').onclick = () => { this.hideModal('failure-modal'); this.showMap(); };
@@ -166,6 +176,12 @@ const App = {
     this.renderBoard();
     this.startTimer();
     this.showScreen('game-screen');
+
+    // Update nav buttons
+    const prevBtn = document.getElementById('btn-prev-level');
+    const nextBtn = document.getElementById('btn-next-level');
+    prevBtn.disabled = levelId <= 1;
+    nextBtn.disabled = !this.progress.completedLevels.includes(levelId + 1);
   },
 
   restartLevel() {
@@ -357,6 +373,11 @@ const App = {
 
     // If a piece is selected and this intersection is a legal move
     if (this.selectedCell) {
+      // Clicking the same piece again = deselect
+      if (this.selectedCell.r === r && this.selectedCell.c === c) {
+        this.clearSelection();
+        return;
+      }
       const move = this.legalMoves.find(m => m.r === r && m.c === c);
       if (move) {
         this.executeMove(this.selectedCell.r, this.selectedCell.c, r, c);
@@ -770,6 +791,10 @@ const App = {
 
     // Check achievements
     const newAchievements = this.checkAchievements();
+
+    // Update nav buttons
+    document.getElementById('btn-prev-level').disabled = levelId <= 1;
+    document.getElementById('btn-next-level').disabled = levelId >= LEVELS.length || !this.progress.completedLevels.includes(levelId + 1);
 
     // Show victory modal
     const starsEl = document.getElementById('victory-stars');

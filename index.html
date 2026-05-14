@@ -10,10 +10,9 @@
   <link rel="stylesheet" href="css/style.css?v=2">
   <script>
     window.jsErrors = [];
-    window.onerror = function(msg, url, line, col, err) {
+    window.onerror = function(msg, url, line) {
       window.jsErrors.push(msg + ' @ ' + url + ':' + line);
-      var el = document.getElementById('js-error-panel');
-      if (el) el.textContent = window.jsErrors.join('\n');
+      console.error('JS Error:', window.jsErrors.join('\n'));
     };
   </script>
 </head>
@@ -79,6 +78,8 @@
           <span class="star empty">★</span>
         </div>
       </div>
+      <button id="btn-prev-level" class="btn-back" disabled>◂ 上一关</button>
+      <button id="btn-next-level" class="btn-back" disabled>下一关 ▸</button>
       <div class="game-stats-bar">
         <span id="step-counter">步数: 0</span>
         <span id="timer">00:00</span>
@@ -132,7 +133,7 @@
       <p id="victory-stats" class="victory-stats"></p>
       <div class="victory-buttons">
         <button id="btn-replay" class="btn btn-secondary">再玩一次</button>
-        <button id="btn-next-level" class="btn btn-primary">下一关</button>
+        <button id="btn-victory-next" class="btn btn-primary">下一关</button>
       </div>
     </div>
     <canvas id="confetti-canvas"></canvas>
@@ -178,7 +179,6 @@
   <!-- Toast -->
   <div id="toast" class="toast"></div>
 
-  <pre id="js-error-panel" style="position:fixed;bottom:0;left:0;width:100%;background:#c23a30;color:#fff;padding:12px;font-size:14px;z-index:9999;max-height:200px;overflow:auto;white-space:pre-wrap;word-break:break-all;"></pre>
   <script src="js/chess-engine.js?v=2"></script>
   <script src="js/validator.js?v=2"></script>
   <script src="js/levels.js?v=2"></script>
