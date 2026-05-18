@@ -211,6 +211,11 @@ body {
   background: var(--wood-light);
 }
 
+.btn-back:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
 .btn-hint, .btn-restart, .btn-undo {
   font-family: 'ZCOOL KuaiLe', cursive;
   background: rgba(255, 255, 255, 0.8);

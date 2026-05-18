@@ -145,7 +145,7 @@ const LEVELS = [
     id: 17, name: "兵贵神速", subtitle: "兵的妙用", chapter: 4, type: "offensive",
     description: "兵虽然走得慢，但过河后威力大增。用兵配合其他子力完成杀局！",
     objective: { type: "checkmate", targetColor: "black" },
-    position: "9/4k4/4N4/5a3/4P4/9/9/9/9/3K5",
+    position: "9/4k4/4Na3/9/4P4/9/9/9/9/3K5",
     hints: ["兵向前走一步可以将军", "用馬配合也能将军"],
     starSteps: [3, 4, 6], allowedPieces: null, aiDepth: 4
   },
@@ -176,16 +176,18 @@ const LEVELS = [
 ];
 
 const ACHIEVEMENTS = [
-  { id: "first_step", name: "第一步", desc: "完成第一关", icon: "👣", condition: (s) => s.completedLevels.length >= 1 },
+  { id: "first_step", name: "第一步", desc: "完成第1关", icon: "👣", condition: (s) => s.completedLevels.includes(1) },
   { id: "novice", name: "小棋手", desc: "完成5关", icon: "🎯", condition: (s) => s.completedLevels.length >= 5 },
-  { id: "intermediate", name: "棋艺初成", desc: "完成10关", icon: "♟️", condition: (s) => s.completedLevels.length >= 10 },
+  { id: "halfway", name: "棋艺初成", desc: "完成10关", icon: "♟️", condition: (s) => s.completedLevels.length >= 10 },
   { id: "master", name: "象棋大师", desc: "完成全部20关", icon: "👑", condition: (s) => s.completedLevels.length >= 20 },
   { id: "perfect", name: "完美主义", desc: "任意一关获得3星", icon: "⭐", condition: (s) => Object.values(s.levelStars).some(v => v === 3) },
   { id: "all_perfect", name: "全满星", desc: "所有关卡获得3星", icon: "🌟", condition: (s) => Object.values(s.levelStars).filter(v => v === 3).length >= 20 },
-  { id: "speed_demon", name: "速度之星", desc: "在5步内完成第11关", icon: "⚡", condition: (s) => s.levelSteps[11] && s.levelSteps[11] <= 5 },
+  { id: "speed_demon", name: "闪电出击", desc: "3步内完成第6关蹩脚马", icon: "⚡", condition: (s) => s.levelSteps[6] && s.levelSteps[6] <= 3 },
   { id: "no_hint", name: "独立思考", desc: "不使用提示完成任意一关", icon: "💡", condition: (s) => s.noHintLevels && s.noHintLevels.length >= 1 },
   { id: "persistent", name: "百折不挠", desc: "某一关尝试了5次以上", icon: "🔥", condition: (s) => Object.values(s.levelAttempts).some(a => a >= 5) },
-  { id: "defender", name: "铁壁防守", desc: "完成任意防守关", icon: "🛡️", condition: (s) => LEVELS.filter(l => l.type === 'defensive').some(l => s.completedLevels.includes(l.id)) }
+  { id: "defender", name: "铁壁防守", desc: "完成第8关士守九宫", icon: "🛡️", condition: (s) => s.completedLevels.includes(8) },
+  { id: "sacrifice", name: "弃车保帅", desc: "完成第16关", icon: "🚗", condition: (s) => s.completedLevels.includes(16) },
+  { id: "fishing", name: "钓鱼高手", desc: "完成第12关钓鱼马", icon: "🎣", condition: (s) => s.completedLevels.includes(12) }
 ];
 
 const PIECE_NAMES = {

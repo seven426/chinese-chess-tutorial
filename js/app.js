@@ -181,7 +181,7 @@ const App = {
     const prevBtn = document.getElementById('btn-prev-level');
     const nextBtn = document.getElementById('btn-next-level');
     prevBtn.disabled = levelId <= 1;
-    nextBtn.disabled = !this.progress.completedLevels.includes(levelId + 1);
+    nextBtn.disabled = levelId >= LEVELS.length || !this.progress.completedLevels.includes(levelId);
   },
 
   restartLevel() {
@@ -793,9 +793,9 @@ const App = {
     // Check achievements
     const newAchievements = this.checkAchievements();
 
-    // Update nav buttons
+    // Update nav buttons — after victory, next level is unlocked
     document.getElementById('btn-prev-level').disabled = levelId <= 1;
-    document.getElementById('btn-next-level').disabled = levelId >= LEVELS.length || !this.progress.completedLevels.includes(levelId + 1);
+    document.getElementById('btn-next-level').disabled = levelId >= LEVELS.length;
 
     // Show victory modal
     const starsEl = document.getElementById('victory-stars');
